@@ -1,5 +1,7 @@
 #include "../s21_math.h"
 
+int s21_abs(int x) { return x >= 0 ? x : -x; }
+
 long double s21_fabs(double x) { return x > EPS ? x : x < -EPS ? -x : 0; }
 
 long double s21_fact_rec(int n, long double acc) {

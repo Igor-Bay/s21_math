@@ -6,7 +6,9 @@ long double s21_pow_rec(long double base, int exp, long double acc) {
                           : s21_pow_rec(base * base, exp / 2, acc);
 }
 
-long double s21_pow(double base, int exp) { return s21_pow_rec(base, exp, 1.0L); }
+long double s21_pow(double base, int exp) {
+  return s21_pow_rec(base, exp, 1.0L);
+}
 
 long double s21_exp(double x) {
   long double result = 0;

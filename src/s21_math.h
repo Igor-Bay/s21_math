@@ -46,6 +46,7 @@ typedef union {
 } double_bits;
 
 // basic functions
+int s21_abs(int x);
 long double s21_fabs(double x);
 long double s21_pow(double base, int exp);
 long double s21_fact(int n);
