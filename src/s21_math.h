@@ -53,6 +53,7 @@ long double s21_fact(int n);
 
 // power functions
 long double s21_exp(double x);
+long double s21_log(double x);
 
 // trigonometric functions
 long double s21_sin(double x);
