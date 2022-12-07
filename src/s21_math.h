@@ -62,7 +62,7 @@ long double s21_tan(double x);
 // long double s21_atan(double x);
 
 // tail call functions
-long double s21_pow_rec(double base, int exp, long double acc);
+long double s21_pow_rec(long double base, int exp, long double acc);
 long double s21_fact_rec(int n, long double acc);
 
 #endif  // SRC_S21_STRING_H_
