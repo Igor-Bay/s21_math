@@ -22,20 +22,22 @@
 #include <math.h>
 
 /*  Even though these might be more useful as long doubles, POSIX requires
-  that they be double-precision literals.                                   */
-#define S21_E 2.71828182845904523536028747135266250        /* e              */
-#define S21_LOG2E 1.44269504088896340735992468100189214    /* log2(e)        */
-#define S21_LOG10E 0.434294481903251827651128918916605082  /* log10(e)       */
-#define S21_LN2 0.693147180559945309417232121458176568     /* loge(2)        */
-#define S21_LN10 2.30258509299404568401799145468436421     /* loge(10)       */
-#define S21_PI 3.14159265358979323846264338327950288       /* pi             */
-#define S21_PI_2 1.57079632679489661923132169163975144     /* pi/2           */
-#define S21_PI_4 0.785398163397448309615660845819875721    /* pi/4           */
-#define S21_1_PI 0.318309886183790671537767526745028724    /* 1/pi           */
-#define S21_2_PI 0.636619772367581343075535053490057448    /* 2/pi           */
-#define S21_2_SQRTPI 1.12837916709551257389615890312154517 /* 2/sqrt(pi) */
-#define S21_SQRT2 1.41421356237309504880168872420969808    /* sqrt(2)        */
-#define S21_SQRT1_2 0.707106781186547524400844362104849039 /* 1/sqrt(2) */
+  that they be double-precision literals. */
+#define S21_E 2.718281828459045235360287471352662500L      /* e              */
+#define S21_LOG2E 1.442695040888963407359924681001892140L  /* log2(e)        */
+#define S21_LOG10E 0.434294481903251827651128918916605082L /* log10(e) */
+#define S21_LN2 0.693147180559945309417232121458176568L    /* loge(2)        */
+#define S21_LN10 2.302585092994045684017991454684364210L   /* loge(10)       */
+#define S21_PI 3.141592653589793238462643383279502880L     /* pi             */
+#define S21_PI_2 1.570796326794896619231321691639751440L   /* pi/2           */
+#define S21_PI_4 0.785398163397448309615660845819875721L   /* pi/4           */
+#define S21_1_PI 0.318309886183790671537767526745028724L   /* 1/pi           */
+#define S21_2_PI 0.636619772367581343075535053490057448L   /* 2/pi           */
+#define S21_2_SQRTPI \
+  1.128379167095512573896158903121545170L                   /* 2/sqrt(pi)     */
+#define S21_SQRT2 1.414213562373095048801688724209698080L   /* sqrt(2)        */
+#define S21_SQRT1_2 0.707106781186547524400844362104849039L /* 1/sqrt(2) */
+#define S21_SQRTE 1.648721270700128102982932876141575206L   /* sqrt(e)        */
 
 #define S21_MAXFLOAT 0x1.fffffep+127f
 #define EPS 10e-16
@@ -54,6 +56,8 @@ long double s21_fact(int n);
 // power functions
 long double s21_exp(double x);
 long double s21_log(double x);
+long double s22_pow(double base, double exp);
+long double s21_sqrt(double x);
 
 // trigonometric functions
 long double s21_sin(double x);
