@@ -6,14 +6,14 @@ long double s21_pow_rec(long double base, int exp, long double acc) {
                           : s21_pow_rec(base * base, exp / 2, acc);
 }
 
-long double s21_pow(double base, int exp) {
+long double s21_pow_int(double base, int exp) {
   return s21_pow_rec(base, exp, 1.0L);
 }
 
 long double s21_exp(double x) {
   long double result = 0;
   if (x >= -10.)
-    for (int i = 1000; i >= 0; --i) result += s21_pow(x, i) / s21_fact(i);
+    for (int i = 1000; i >= 0; --i) result += s21_pow_int(x, i) / s21_fact(i);
 
   return result;
 }
@@ -50,12 +50,12 @@ long double s21_log(double x) {
   }
 
   for (int i = 1000; i > 0; --i)
-    result += (i % 2 == 1 ? 1 : -1) * s21_pow(d - 1.0L, i) / i;
+    result += (i % 2 == 1 ? 1 : -1) * s21_pow_int(d - 1.0L, i) / i;
 
   return result;
 }
 
-long double s22_pow(double base, double exp) {
+long double s21_pow(double base, double exp) {
   return s21_exp(s21_log(base) * exp);
 }
 
@@ -63,5 +63,5 @@ long double s21_sqrt(double x) {
   if (isnan(x) || x < -MEGA_EPS) {
     return NAN;
   }
-  return s22_pow(x, 0.5);
+  return s21_pow(x, 0.5);
 }
