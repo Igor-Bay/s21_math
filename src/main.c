@@ -1,9 +1,9 @@
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
 #include "s21_math.h"
+// #include "./s21_math_functions/s21_math_basic_functions.c"
 
 void bin(uint64_t n, uint64_t bytes) {
   uint64_t i = 0LLU;
@@ -22,22 +22,27 @@ void print_cast(double_cast *dc) {
 }
 
 int main(void) {
-  srand(time(NULL));
-
-  for (int i = 0; i < 100; ++i) {
-    double_cast d1 = {.d = 1e-20 * rand() * s21_pow(rand(), 2) * i};
-    // double_cast d2 = {.d = 1e10 * (double)rand()};
-    // print_cast(&d1);
-    printf("%.16f\n", d1.d);
-    double_cast d3 = {.d = round(d1.d)};
-    double_cast d4 = {.d = s21_round(d1.d)};
-    // print_cast(&d2);
-    // print_cast(&d3);
-    // printf("%.6f\n", d3.d);
-    // printf("%.6f\n", d4.d);
-    // printf("%f\n", round(d3.d * 10e6) / 10e6 - round(d4.d * 10e6) / 10e6);
-    printf("%f\n", d3.d - d4.d);
-    printf("\n");
+  for (double x = -30; x < 100; x += 1) {
+    printf("%Lf\t%.7Lf\n", s21_exp(x), s21_exp(x) - (long double)exp(x));
+    // printf("%lf\n%lf\n", round(s21_exp(x) * 1e16) / 1e16, exp(x));
+    // printf("\n");
   }
+
   return 0;
 }
+
+/*
+  srand(time(NULL));
+
+  for (int i = 0; i < 300; ++i) {
+    double d1 = 1e5 * rand() * i;
+    double d2 = 1e1 * rand() * i;
+
+    // printf("%.16f\n", d1);
+    // printf("%.16f\n", d2);
+
+    // printf("%Lf\n%Lf\n", s21_fmod(d1, d2), fmodl(d1, d2));
+    printf("%.6Lf\n", s21_fmod(d1, d2) - (long double)fmod(d1, d2));
+    printf("\n");
+  }
+*/

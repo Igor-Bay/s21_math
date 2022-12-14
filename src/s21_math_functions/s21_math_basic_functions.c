@@ -50,4 +50,16 @@ long double s21_round(double x) {
   return x_trnc;
 }
 
-long double s21_fmod(double x, double y) { return x - trunc(x / y) * y; }
+long double s21_fmod(double x, double y) {
+  long double result = 0.;
+  if (S21_IS_NAN(x + y))
+    result = x + y;
+  else if (S21_IS_INF(x) || 0. == y)
+    result = S21_NAN;
+  else if (S21_IS_INF(y) || 0. == x)
+    result = x;
+  else
+    result = x - s21_trunc(x / y) * y;
+
+  return s21_round(result * 10e16) / 10e16;
+}

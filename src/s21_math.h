@@ -20,6 +20,7 @@
 
 #include <math.h>
 #include <stdint.h>
+#include <stdio.h>
 
 /*  Even though these might be more useful as long doubles, POSIX requires
   that they be double-precision literals. */
@@ -39,8 +40,12 @@
 #define S21_SQRT1_2 0.707106781186547524400844362104849039L /* 1/sqrt(2) */
 #define S21_SQRTE 1.648721270700128102982932876141575206L   /* sqrt(e)        */
 
-// #define S21_MAXFLOAT 0x1.fffffep+127f
-#define EPS 10e-16
+#define EPS 10e-32
+// #define MEGA_EPS 1e-32
+#define S21_NAN (0.f / 0.f)
+#define S21_INF (1.f / 0.f)
+#define S21_IS_NAN(X) ((X) != (X))
+#define S21_IS_INF(X) ((X) == S21_INF || (X) == -S21_INF)
 
 typedef union {
   double d;

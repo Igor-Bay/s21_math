@@ -12,20 +12,19 @@ long double s21_pow_int(double base, int exp) {
 
 long double s21_exp(double x) {
   long double result = 0;
-  if (x >= -10.)
-    for (int i = 1000; i >= 0; --i) result += s21_pow_int(x, i) / s21_fact(i);
-
+  long double tmp = 1;
+  if (x >= -20.)
+    for (int i = 1; i <= 5000; ++i) {
+      result += tmp;
+      tmp *= x / i;
+    }
   return result;
 }
 
-#include <math.h>
-
-#define MEGA_EPS 1e-40
-
 long double s21_log(double x) {
-  if (x < -MEGA_EPS)
+  if (x < -EPS)
     return NAN;
-  else if (x < MEGA_EPS)
+  else if (x < EPS)
     return -INFINITY;
   else if (x > __DBL_MAX__)
     return INFINITY;
@@ -42,17 +41,20 @@ long double s21_log(double x) {
     t--;
   }
 
-  long double result = t;
+  long double result = 0.0L;
 
-  if (d > 2.0L - EPS) {
+  if (d > 1.8L - EPS) {
     d /= S21_SQRTE;
     result += 0.5L;
   }
 
-  for (int i = 1000; i > 0; --i)
-    result += (i % 2 == 1 ? 1 : -1) * s21_pow_int(d - 1.0L, i) / i;
+  long double tmp = d - 1.0L;
+  for (int i = 1; i < 2500; ++i) {
+    result += (i % 2 == 1 ? 1 : -1) * tmp / i;
+    tmp *= d - 1.0L;
+  }
 
-  return result;
+  return result + t;
 }
 
 long double s21_pow(double base, double exp) {
@@ -60,7 +62,7 @@ long double s21_pow(double base, double exp) {
 }
 
 long double s21_sqrt(double x) {
-  if (isnan(x) || x < -MEGA_EPS) {
+  if (isnan(x) || x < -EPS) {
     return NAN;
   }
   return s21_pow(x, 0.5);
