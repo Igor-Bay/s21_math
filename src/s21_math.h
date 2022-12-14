@@ -18,8 +18,8 @@
 #ifndef SRC_S21_MATH_H_
 #define SRC_S21_MATH_H_
 
-#include <inttypes.h>
 #include <math.h>
+#include <stdint.h>
 
 /*  Even though these might be more useful as long doubles, POSIX requires
   that they be double-precision literals.                                   */
@@ -37,18 +37,27 @@
 #define S21_SQRT2 1.41421356237309504880168872420969808    /* sqrt(2)        */
 #define S21_SQRT1_2 0.707106781186547524400844362104849039 /* 1/sqrt(2) */
 
-#define S21_MAXFLOAT 0x1.fffffep+127f
+// #define S21_MAXFLOAT 0x1.fffffep+127f
 #define EPS 10e-16
 
 typedef union {
-  long double d;
-  int64_t i;
-} double_bits;
+  double d;
+  struct {
+    uint64_t mnt : 52;
+    uint64_t exp : 11;
+    uint64_t sgn : 1;
+  } parts;
+} double_cast;
 
 // basic functions
 long double s21_fabs(double x);
 long double s21_pow(double base, int exp);
 long double s21_fact(int n);
+long double s21_trunc(double x);
+long double s21_floor(double x);
+long double s21_ceil(double x);
+long double s21_round(double x);
+long double s21_fmod(double x, double y);
 
 // power functions
 long double s21_exp(double x);
