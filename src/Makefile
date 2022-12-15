@@ -2,6 +2,12 @@ CC=gcc
 BUILDFLAGS=-std=c11 -Wall -Wextra -Werror
 CFLAGS=$(BUILDFLAGS) -c
 
+LINUXFLAGS:=
+ifeq ($(shell uname -s),Linux)
+	LINUXFLAGS += -lm -lrt -lsubunit 
+# -lstdc++
+endif
+
 HEADERS=s21_math.h
 SOURCES=$(addprefix s21_math_functions/,s21_math_basic_functions.c s21_math_trigonometric_functions.c s21_math_inv_trig_functions.c s21_math_power_functions.c)
 OBJECTS=$(SOURCES:.c=.o)
@@ -14,7 +20,7 @@ all: s21_math.a
 	$(CC) $^ -o $@
 	
 %.o: %.c
-	$(CC) $(CFLAGS) $^ -o $@ 
+	$(CC) $(CFLAGS) $(LINUXFLAGS) $^ -o $@ 
 
 s21_math.a:  $(OBJECTS)
 	ar rcs s21_math.a $^
