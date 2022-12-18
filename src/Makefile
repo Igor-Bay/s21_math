@@ -9,7 +9,7 @@ ifeq ($(shell uname -s),Linux)
 endif
 
 HEADERS=s21_math.h
-SOURCES=$(addprefix s21_math_functions/,s21_math_basic_functions.c s21_math_trigonometric_functions.c s21_math_inv_trig_functions.c s21_math_power_functions.c)
+SOURCES=$(addprefix s21_math_functions/,s21_math_basic_functions.c s21_math_trigonometric_functions.c s21_math_inv_trig_functions.c s21_math_power_functions.c s21_math_round_functions.c s21_math_fmod.c)
 OBJECTS=$(SOURCES:.c=.o)
 
 FILES_TO_CHECK=$(SOURCES) $(HEADERS)

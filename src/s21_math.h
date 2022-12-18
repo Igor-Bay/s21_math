@@ -34,14 +34,12 @@
 #define S21_PI_4 0.785398163397448309615660845819875721L   /* pi/4           */
 #define S21_1_PI 0.318309886183790671537767526745028724L   /* 1/pi           */
 #define S21_2_PI 0.636619772367581343075535053490057448L   /* 2/pi           */
-#define S21_2_SQRTPI \
-  1.128379167095512573896158903121545170L                   /* 2/sqrt(pi)     */
-#define S21_SQRT2 1.414213562373095048801688724209698080L   /* sqrt(2)        */
-#define S21_SQRT1_2 0.707106781186547524400844362104849039L /* 1/sqrt(2) */
-#define S21_SQRTE 1.648721270700128102982932876141575206L   /* sqrt(e)        */
+#define S21_2_SQRTPI 1.128379167095512573896158903121545170L /* 2/sqrt(pi) */
+#define S21_SQRT2 1.414213562373095048801688724209698080L    /* sqrt(2)       */
+#define S21_SQRT1_2 0.707106781186547524400844362104849039L  /* 1/sqrt(2)  */
+#define S21_SQRTE 1.648721270700128102982932876141575206L    /* sqrt(e)       */
 
 #define EPS 10e-32
-// #define MEGA_EPS 1e-32
 #define S21_NAN (0.f / 0.f)
 #define S21_INF (1.f / 0.f)
 #define S21_IS_NAN(X) ((X) != (X))
@@ -49,6 +47,7 @@
 
 typedef union {
   double d;
+  // uint64_t u;
   struct {
     uint64_t mnt : 52;
     uint64_t exp : 11;
@@ -61,11 +60,6 @@ int s21_abs(int x);
 long double s21_fabs(double x);
 long double s21_pow_int(double base, int exp);
 long double s21_fact(int n);
-long double s21_trunc(double x);
-long double s21_floor(double x);
-long double s21_ceil(double x);
-long double s21_round(double x);
-long double s21_fmod(double x, double y);
 
 // power functions
 long double s21_exp(double x);
@@ -80,6 +74,16 @@ long double s21_tan(double x);
 
 // inverse trigonometric functions
 // long double s21_atan(double x);
+
+// round functions
+long double s21_trunc(double x);
+long double s21_floor(double x);
+long double s21_ceil(double x);
+long double s21_round(double x);
+
+// fmod
+long double s21_fmod(double x, double y);
+double s21_fmod_apple(double x, double y);
 
 // tail call functions
 long double s21_pow_rec(long double base, int exp, long double acc);
