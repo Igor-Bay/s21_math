@@ -51,6 +51,7 @@ long double s21_fmod(double x, double y) {
   return result;
 }
 
+/*
 double s21_fmod_apple(double x, double y) {
   union {
     double d;
@@ -155,3 +156,4 @@ double s21_fmod_apple(double x, double y) {
   ux.u = sx | ((int64_t)expy << 52);
   return ux.d * 0x1.0p-1022;
 }
+*/
