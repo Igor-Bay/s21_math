@@ -39,11 +39,14 @@
 #define S21_SQRT1_2 0.707106781186547524400844362104849039L  /* 1/sqrt(2)  */
 #define S21_SQRTE 1.648721270700128102982932876141575206L    /* sqrt(e)       */
 
-#define EPS 10e-32
+#define EPS 1e-32
 #define S21_NAN (0.f / 0.f)
 #define S21_INF (1.f / 0.f)
 #define S21_IS_NAN(X) ((X) != (X))
 #define S21_IS_INF(X) ((X) == S21_INF || (X) == -S21_INF)
+#define S21_IS_NULL(X) ((X) < EPS && (X) > -EPS)
+#define S21_IS_NEG(X) (*(long*)&(X) & 0x8000000000000000)
+#define S21_MAX_DOUBLE 1.7976931348623157E+308
 
 typedef union {
   double d;

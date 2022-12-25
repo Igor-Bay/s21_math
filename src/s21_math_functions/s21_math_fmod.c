@@ -10,9 +10,9 @@ long double s21_fmod(double x, double y) {
     result = S21_NAN;
   else if (S21_IS_INF(y) || s21_fabs(x) < EPS)
     result = x;
-  else if (s21_fabs(x) < s21_fabs(y) + EPS) {  // x <= y
-    if (s21_fabs(x - y) < EPS)                 // x == y
-      result = 0. * ((dx.parts.sgn - dy.parts.sgn) ? -1 : 1);
+  else if (s21_fabs(x) <= s21_fabs(y) + EPS) {
+    if (S21_IS_NULL(s21_fabs(x) - s21_fabs(y)))
+      result = 0. * (dx.parts.sgn ? -1 : 1);
     else
       result = x;
   } else {
