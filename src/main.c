@@ -29,55 +29,7 @@ int main(void) {
   srand(time(NULL));
 
   double d1 = 0.;
-  // double d2 = 1.;
-  // printf("%.6Lf\n", s21_fmod(d1, d2) - fmod(d1, d2));
-
-  // // print_cast(s21_fmod(d1, d2));
-  // // print_cast(fmod(d1, d2));
-
-  // d1 = 1.;
-  // d2 = 1.;
-  // printf("%.6Lf\n", s21_fmod(d1, d2) - fmod(d1, d2));
-
-  // d1 = 1.;
-  // d2 = 0.9999999999;
-  // printf("%.6Lf\n", s21_fmod(d1, d2) - fmod(d1, d2));
-
-  // d1 = 0.9999999999;
-  // d2 = 1.;
-  // printf("%.6Lf\n", s21_fmod(d1, d2) - fmod(d1, d2));
-
-  // d1 = 1.;
-  // d2 = 0.98;
-  // printf("%.6Lf\n", s21_fmod(d1, d2) - fmod(d1, d2));
-
-  // d1 = 0.9999999999;
-  // d2 = 2.;
-  // printf("%.6Lf\n", s21_fmod(d1, d2) - fmod(d1, d2));
-
-  // d1 = -1.;
-  // d2 = 0.98;
-  // printf("%.6Lf\n", s21_fmod(d1, d2) - fmod(d1, d2));
-
-  // d1 = 0.9999999999;
-  // d2 = -2.;
-  // printf("%.6Lf\n", s21_fmod(d1, d2) - fmod(d1, d2));
-
-  // d1 = 12.6;
-  // d2 = 2.;
-  // printf("%.6Lf\n", s21_fmod(d1, d2) - fmod(d1, d2));
-
-  // d1 = 149.954;
-  // d2 = 18.3;
-  // printf("%.6Lf\n", s21_fmod(d1, d2) - fmod(d1, d2));
-
-  // d1 = 149.954 * 1e6;
-  // d2 = 18.3 * 1e-6;
-  // printf("%.6Lf\n", s21_fmod(d1, d2) - fmod(d1, d2));
-
-  // d1 = 120 * 1e6;
-  // d2 = 2;
-  // printf("%.6Lf\n", s21_fmod(d1, d2) - fmod(d1, d2));
+  // double d2 = 0.;
 
   // for (int i = 0; i < 100000; ++i) {
   //   // (-10^[1-2])^([0-100]^[-1,1]) * [-1,1]
