@@ -15,14 +15,14 @@ long double s21_trunc(double x) {
 long double s21_floor(double x) {
   double_cast dc = {x};
   double res = s21_trunc(x);
-  if (fabs(x - res) > EPS) res += dc.parts.sgn ? -1. : 0;
+  if (s21_fabs(x - res) > EPS) res += dc.parts.sgn ? -1. : 0;
   return res;
 }
 
 long double s21_ceil(double x) {
   double_cast dc = {x};
   double res = s21_trunc(x);
-  if (fabs(x - res) > EPS) res += dc.parts.sgn ? 0. : 1.;
+  if (s21_fabs(x - res) > EPS) res += dc.parts.sgn ? 0. : 1.;
   return res;
 }
 
@@ -31,7 +31,7 @@ long double s21_round(double x) {
   double res = x;
   if (dc.parts.exp < 1075) {
     res = s21_trunc(x);
-    if (fabs(x - res) > 0.5 - EPS) res += dc.parts.sgn ? -1. : 1.;
+    if (s21_fabs(x - res) > 0.5 - EPS) res += dc.parts.sgn ? -1. : 1.;
   }
   return res;
 }

@@ -18,7 +18,6 @@
 #ifndef SRC_S21_MATH_H_
 #define SRC_S21_MATH_H_
 
-#include <math.h>
 #include <stdint.h>
 #include <stdio.h>
 
@@ -76,7 +75,9 @@ long double s21_cos(double x);
 long double s21_tan(double x);
 
 // inverse trigonometric functions
-// long double s21_atan(double x);
+long double s21_atan(double x);
+long double s21_asin(double x);
+long double s21_acos(double x);
 
 // round functions
 long double s21_trunc(double x);
