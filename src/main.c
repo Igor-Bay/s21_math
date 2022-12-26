@@ -31,12 +31,12 @@ int main(void) {
   // printf("%.16Lf\t%.16lf\n", s21_cos(S21_PI / 2), cos(S21_PI / 2));
   // printf("%.6Lf\t%.6lf\n", s21_tan(S21_PI / 2), tan(S21_PI / 2));
 
-  for(long double j = -2.; j <= 2.; j += 0.01) {
+  for(long double j = -2.; j <= 2.; j += 0.0625) {
     long double i = S21_PI * j;
     printf("\n%Lf\n", i);
-    if (s21_sin(i) - sin(i) > 1e-6) printf("%.6Lf\n", s21_sin(i) - sin(i));
-    if (s21_cos(i) - cos(i) > 1e-6) printf("%.6Lf\n", s21_cos(i) - cos(i));
-    if (s21_tan(i) - tan(i) > 1e-6) printf("%.6Lf\n", s21_tan(i) - tan(i));
+    if (s21_sin(i) - sin(i) > 1e-6 || s21_sin(i) - sin(i) < -1e-6) printf("%.6Lf\n", s21_sin(i) - sin(i));
+    if (s21_cos(i) - cos(i) > 1e-6 || s21_cos(i) - cos(i) < -1e-6) printf("%.6Lf\n", s21_cos(i) - cos(i));
+    if (s21_tan(i) - tan(i) > 1e-6 || s21_tan(i) - tan(i) < -1e-6)printf("%.6Lf\n", s21_tan(i) - tan(i));
   }
 
   return 0;
