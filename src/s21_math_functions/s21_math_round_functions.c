@@ -31,7 +31,7 @@ long double s21_round(double x) {
   double res = x;
   if (dc.parts.exp < 1075) {
     res = s21_trunc(x);
-    if (s21_fabs(x - res) > 0.5 - EPS) res += dc.parts.sgn ? -1. : 1.;
+    if (s21_fabs(x - res) >= 0.5 - EPS) res += dc.parts.sgn ? -1. : 1.;
   }
   return res;
 }

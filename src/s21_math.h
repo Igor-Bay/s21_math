@@ -44,7 +44,7 @@
 #define S21_IS_NAN(X) ((X) != (X))
 #define S21_IS_INF(X) ((X) == S21_INF || (X) == -S21_INF)
 #define S21_IS_NULL(X) ((X) < EPS && (X) > -EPS)
-#define S21_IS_NEG(X) (*(long*)&(X) & 0x8000000000000000)
+#define S21_IS_NEG(X) (*(long*)&(X)&0x8000000000000000)
 #define S21_MAX_DOUBLE 1.7976931348623157E+308
 
 typedef union {

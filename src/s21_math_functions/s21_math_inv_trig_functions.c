@@ -52,31 +52,31 @@ long double s21_asin(double x) {
 
 long double s21_acos(double x) {
   long double result = 0L;
+  if (s21_fabs(x) <= 1. + EPS) {
+    long double left_bound = S21_PI;
+    long double right_bound = 0;
+    long double prev_mid = 0.0L;
+    long double mid = (left_bound + right_bound) / 2;
+    long double func_diff = s21_cos(mid) - x;
 
-  long double left_bound = S21_PI;
-  long double right_bound = 0;
-  long double prev_mid = 0.0L;
-  long double mid = (left_bound + right_bound) / 2;
-  long double func_diff = s21_cos(mid) - x;
-
-  while (s21_fabs(func_diff) > 1e-15 && s21_fabs(mid - prev_mid) > 1e-10) {
-    if (func_diff < -EPS) {
-      left_bound = mid;
-    } else {
-      right_bound = mid;
+    while (s21_fabs(func_diff) > 1e-15 && s21_fabs(mid - prev_mid) > 1e-10) {
+      if (func_diff < -EPS) {
+        left_bound = mid;
+      } else {
+        right_bound = mid;
+      }
+      prev_mid = mid;
+      mid = (left_bound + right_bound) / 2;
+      func_diff = s21_cos(mid) - x;
     }
-    prev_mid = mid;
-    mid = (left_bound + right_bound) / 2;
-    func_diff = s21_cos(mid) - x;
-  }
 
-  if (s21_fabs(func_diff) > 1e-1) {
+    if (s21_fabs(func_diff) > 1e-1) {
+      result = S21_NAN;
+    } else {
+      result = mid;
+    }
+  } else
     result = S21_NAN;
-  } else {
-
-  result = mid;
-
-  }
 
   return result;
 }

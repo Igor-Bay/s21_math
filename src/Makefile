@@ -49,7 +49,7 @@ report_nolcov:
 	gcov *gcno > coverage.txt
 	open coverage.txt
 
-test: test_s21_math.a
+test: clean test_s21_math.a
 	$(CC) $(TESTS_SOURCES) $(TESTFLAGS) $(GCOVFLAGS) -L. s21_math.a -o test.out
 	./test.out
 
@@ -77,4 +77,4 @@ stylecheck: .clang-format
 	@clang-format -n $(FILES_TO_CHECK)
 	
 fmt: .clang-format
-	@clang-format -i $(FILES_TO_CHECK) main.c check_test.check
+	@clang-format -i $(FILES_TO_CHECK) main.c check_test.c

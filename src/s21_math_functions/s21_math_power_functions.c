@@ -78,11 +78,13 @@ long double s21_pow(double base, double exp) {
   } else if (S21_IS_NAN(base)) {
     result = S21_NAN;
   } else if (exp == S21_INF) {
-    result = (S21_IS_NULL(s21_fabs(base) - 1) ? 1 : 
-    ((s21_fabs(base) < 1 + EPS) ? 0 : S21_INF));
+    result = (S21_IS_NULL(s21_fabs(base) - 1)
+                  ? 1
+                  : ((s21_fabs(base) < 1 + EPS) ? 0 : S21_INF));
   } else if (exp == -S21_INF) {
-    result = (S21_IS_NULL(s21_fabs(base) - 1) ? 1 : 
-    ((s21_fabs(base) < 1 + EPS) ? S21_INF : 0));
+    result = (S21_IS_NULL(s21_fabs(base) - 1)
+                  ? 1
+                  : ((s21_fabs(base) < 1 + EPS) ? S21_INF : 0));
   } else if (S21_IS_NEG(base)) {
     if (S21_IS_NULL(exp - s21_trunc(exp))) {
       result = s21_exp(s21_log(-base) * exp);
@@ -99,7 +101,7 @@ long double s21_sqrt(double x) {
   long double result = 0;
 
   if (S21_IS_NAN(x) || x < -EPS) {
-    result =  S21_NAN;
+    result = S21_NAN;
   } else if (S21_IS_NEG(x)) {
     result = -0.;
   } else {
