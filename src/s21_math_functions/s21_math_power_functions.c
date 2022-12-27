@@ -87,12 +87,68 @@ long double s21_pow(double base, double exp) {
                   : ((s21_fabs(base) < 1 + EPS) ? S21_INF : 0));
   } else if (S21_IS_NEG(base)) {
     if (S21_IS_NULL(exp - s21_trunc(exp))) {
-      result = s21_exp(s21_log(-base) * exp);
+      result = s21_pow(-base, exp);
       result *= S21_IS_NULL(s21_fmod(exp, 2)) ? 1 : -1;
     } else
       result = S21_NAN;
   } else {
-    result = s21_exp(s21_log(base) * exp);
+    long double power = s21_log(base) * exp;
+    long double left_bound = s21_exp(power - 1);
+    long double right_bound = s21_exp(power + 1);
+    if (S21_IS_INF(left_bound)) {
+      result = left_bound;
+    } else {
+      if (S21_IS_INF(right_bound)) {
+        right_bound = S21_MAX_DOUBLE;
+      }
+
+      // метод хорд и касательных
+      // сходится быстро но нужно сделать на него многа тестов!!!
+      // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+      long double mid = left_bound / 2. + right_bound / 2.;
+      long double func_diff = s21_log(mid) - power;
+      int counter = 0;
+
+      while (s21_fabs(func_diff) >= 1e-16 &&
+             s21_fabs(right_bound - left_bound) >= 2 * 1e-16 && counter < 14) {
+        long double log_diff = s21_log(right_bound) - s21_log(left_bound);
+        if (s21_fabs(log_diff) > EPS) {
+          right_bound -= s21_fabs((right_bound - left_bound) *
+                                  (s21_log(right_bound) - power) / (log_diff));
+        }
+        left_bound -= (s21_log(left_bound) - power) * left_bound;
+        mid = left_bound / 2. + right_bound / 2.;
+        func_diff = s21_log(mid) - power;
+        counter++;
+      }
+      result = mid;
+      // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      /*
+      // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      // метод половинного деления (бинарный поиск)
+      // сходится итераций за 60 тестов можно сделать поменьше
+      long double prev_mid = 0;
+      long double mid = left_bound / 2. + right_bound / 2.;
+      long double func_diff = s21_log(mid) - power;
+      int counter = 0;
+
+      while (s21_fabs(func_diff) >= EPS && s21_fabs(mid - prev_mid) >= EPS &&
+             counter < 1000) {
+        if (func_diff < 0) {
+          left_bound = mid;
+        } else {
+          right_bound = mid;
+        }
+        prev_mid = mid;
+        mid = left_bound / 2. + right_bound / 2.;
+        func_diff = s21_log(mid) - power;
+        counter++;
+      }
+      result = counter;
+      // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      */
+    }
   }
   return result;
 }

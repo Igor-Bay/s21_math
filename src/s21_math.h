@@ -39,8 +39,8 @@
 #define S21_SQRTE 1.648721270700128102982932876141575206L    /* sqrt(e)       */
 
 #define EPS 1e-32
-#define S21_NAN (0.f / 0.f)
-#define S21_INF (1.f / 0.f)
+#define S21_NAN (0. / 0.)
+#define S21_INF (1. / 0.)
 #define S21_IS_NAN(X) ((X) != (X))
 #define S21_IS_INF(X) ((X) == S21_INF || (X) == -S21_INF)
 #define S21_IS_NULL(X) ((X) < EPS && (X) > -EPS)

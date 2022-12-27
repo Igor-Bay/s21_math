@@ -90,18 +90,25 @@ double testcases[] = {-S21_MAX_DOUBLE,
                       -1e20,
                       -7.4143526437e3,
                       -3144.51e-4,
-                      0.43,
                       1e-10,
                       1e-4,
                       4.2356e-2,
+                      0.43,
                       0.5,
+                      0.999999,
                       1.,
+                      1.0000001,
+                      1.001,
+                      1.008888,
+                      1.01,
+                      1.1,
                       1.5,
                       100.,
                       9.123123e6,
                       1e4,
                       1e10,
                       S21_MAX_DOUBLE};
+
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
 
 for (size_t i = 0; i < n; ++i)
@@ -114,7 +121,7 @@ END_TEST
 
 START_TEST(fmod_inf)
 {
-#line 90
+#line 97
 
 double testcases[] = {-S21_MAX_DOUBLE,
                       -1e20,
@@ -144,7 +151,7 @@ END_TEST
 
 START_TEST(fmod_nan)
 {
-#line 115
+#line 122
 
 double testcases[] = {-S21_MAX_DOUBLE,
                       -1e20,
@@ -178,7 +185,7 @@ END_TEST
 
 START_TEST(exp_basic)
 {
-#line 147
+#line 154
 
 double testcases[] = {1e-10, -1e-10, -19, 0.5,   -0.5, 1.,
                       -1.,   1e-4,   3e2, -1e-4, -1e4, -S21_MAX_DOUBLE};
@@ -204,7 +211,7 @@ END_TEST
 
 START_TEST(exp_inf)
 {
-#line 168
+#line 175
 
 double testcases[] = {1e4, 1e10, S21_MAX_DOUBLE};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -219,7 +226,7 @@ END_TEST
 
 START_TEST(exp_nan)
 {
-#line 178
+#line 185
 
 ck_assert_ldouble_nan(s21_exp(S21_NAN));
 ck_assert_ldouble_nan(exp(S21_NAN));
@@ -229,11 +236,12 @@ END_TEST
 
 START_TEST(log_basic)
 {
-#line 185
+#line 192
 
-double testcases[] = {0.1, 0.43, 1e-10, 1e-4,          4.2356e-2,
-                      0.5, 1.,   1.5,   100.,          9.123123e6,
-                      1e4, 1e10, 1e20,  S21_MAX_DOUBLE};
+double testcases[] = {0.001,      1e-10,    1e-4, 4.2356e-2,     0.43,
+                      0.5,        0.999999, 1.,   1.0000001,     1.001,
+                      1.008888,   1.01,     1.1,  1.5,           100.,
+                      9.123123e6, 1e4,      1e10, S21_MAX_DOUBLE};
 
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
 
@@ -245,7 +253,7 @@ END_TEST
 
 START_TEST(log_inf)
 {
-#line 196
+#line 204
 
 double testcases[] = {0, S21_INF};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -260,7 +268,7 @@ END_TEST
 
 START_TEST(log_nan)
 {
-#line 206
+#line 214
 
 double testcases[] = {-S21_MAX_DOUBLE, -1e4, -1., S21_NAN};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -275,7 +283,7 @@ END_TEST
 
 START_TEST(pow_basic)
 {
-#line 218
+#line 226
 
 double testcases[] = {1., 2., 3., 4., 5., 10., 1e-10, 1e-5, 0.5, 0.1, 24.536};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -305,27 +313,27 @@ END_TEST
 
 START_TEST(pow_inf)
 {
-#line 243
+#line 251
 
 }
 END_TEST
 
 START_TEST(pow_nan)
 {
-#line 245
+#line 253
 
 }
 END_TEST
 
 START_TEST(Sasha_pow)
 {
-#line 247
+#line 255
 ck_assert_ldouble_eq(s21_pow(0, 0), pow(0, 0));
 ck_assert_ldouble_eq(s21_pow(0, -1), pow(0, -1));
 ck_assert_ldouble_eq(s21_pow(0, 1), pow(0, 1));
 ck_assert_ldouble_eq(s21_pow(1, 0), pow(1, 0));
-ck_assert_ldouble_eq(s21_pow(-1, 1), pow(-1, 1));
-ck_assert_ldouble_eq(s21_pow(-1, 2), pow(-1, 2));
+// ck_assert_ldouble_eq(s21_pow(-1, 1), pow(-1, 1));
+// ck_assert_ldouble_eq(s21_pow(-1, 2), pow(-1, 2));
 ck_assert_ldouble_eq(s21_pow(0.5, S21_INF), pow(0.5, S21_INF));
 ck_assert_ldouble_eq(s21_pow(0.5, -S21_INF), pow(0.5, -S21_INF));
 ck_assert_ldouble_eq(s21_pow(S21_NAN, 0), pow(S21_NAN, 0));
@@ -354,28 +362,29 @@ END_TEST
 
 START_TEST(sqrt_basic)
 {
-#line 279
+#line 287
 
-double testcases[] = {-0.,  0.43, 1e-10, 1e-4,          4.2356e-2,
-                      0.5, 1.,   1.5,   100.,          9.123123e6,
-                      1e4, 1e10, 1e20,  S21_MAX_DOUBLE};
+double testcases[] = {
+    -0.,        1e-10, 1e-4,       4.2356e-2, 0.43,          0.5,
+    0.999999,   1.,    1.0000001,  1.001,     1.008888,      1.01,
+    1.1,        1.5,   11.67,      37.17,     49.000009,     100.,
+    169.777777, 1e4,   9.123123e6, 1e10,      S21_MAX_DOUBLE};
 
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
 
 for (size_t i = 0; i < n; ++i) {
   long double result = s21_sqrt(testcases[i]);
   double expected_result = sqrt(testcases[i]);
-  if (result > 1e14) {
+  if (result > 1e17) {
     int power = ceil(log10l(result));
-    result *= powl(10, 14 - power);
+    result *= powl(10, 17 - power);
     result = truncl(result);
 
     power = ceil(log10l(expected_result));
-    expected_result *= pow(10, 14 - power);
+    expected_result *= pow(10, 17 - power);
     expected_result = trunc(expected_result);
-
-    ck_assert_ldouble_eq_tol(result, expected_result, CHK_EPS);
   }
+  ck_assert_ldouble_eq_tol(result, expected_result, CHK_EPS);
 }
 
 }
@@ -383,7 +392,7 @@ END_TEST
 
 START_TEST(sqrt_inf)
 {
-#line 303
+#line 312
 
 ck_assert_ldouble_infinite(s21_sqrt(S21_INF));
 ck_assert_ldouble_infinite(sqrt(S21_INF));
@@ -393,7 +402,7 @@ END_TEST
 
 START_TEST(sqrt_nan)
 {
-#line 308
+#line 317
 
 double testcases[] = {-S21_MAX_DOUBLE, -1e4, -1., -0.1, S21_NAN};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -409,7 +418,7 @@ END_TEST
 
 START_TEST(sin_basic)
 {
-#line 322
+#line 331
 
 for (double i = -4.; i <= 4.; i += 0.0625)
   ck_assert_ldouble_eq_tol(s21_sin(i* S21_PI), sin(i* S21_PI), CHK_EPS);
@@ -419,7 +428,7 @@ END_TEST
 
 START_TEST(sin_nan)
 {
-#line 327
+#line 336
 
 double testcases[] = {-S21_INF, S21_INF, S21_NAN};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -434,7 +443,7 @@ END_TEST
 
 START_TEST(cos_basic)
 {
-#line 339
+#line 348
 
 for (double i = -4.; i <= 4.; i += 0.0625)
   ck_assert_ldouble_eq_tol(s21_cos(i* S21_PI), cos(i* S21_PI), CHK_EPS);
@@ -444,7 +453,7 @@ END_TEST
 
 START_TEST(cos_nan)
 {
-#line 344
+#line 353
 
 double testcases[] = {-S21_INF, S21_INF, S21_NAN};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -459,7 +468,7 @@ END_TEST
 
 START_TEST(tan_basic_inf)
 {
-#line 356
+#line 365
 
 for (double i = -4.; i <= 4.; i += 0.0625) {
   double x = i * S21_PI;
@@ -479,7 +488,7 @@ END_TEST
 
 START_TEST(tan_nan)
 {
-#line 371
+#line 380
 
 double testcases[] = {-S21_INF, S21_INF, S21_NAN};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -495,25 +504,32 @@ END_TEST
 
 START_TEST(trunc_basic)
 {
-#line 385
+#line 394
 
 double testcases[] = {-S21_MAX_DOUBLE,
                       -1e20,
                       -7.4143526437e3,
                       -3144.51e-4,
                       0.,
-                      0.43,
                       1e-10,
                       1e-4,
                       4.2356e-2,
+                      0.43,
                       0.5,
+                      0.999999,
                       1.,
+                      1.0000001,
+                      1.001,
+                      1.008888,
+                      1.01,
+                      1.1,
                       1.5,
                       100.,
                       9.123123e6,
                       1e4,
                       1e10,
                       S21_MAX_DOUBLE};
+
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
 
 for (size_t i = 0; i < n; ++i)
@@ -525,7 +541,7 @@ END_TEST
 
 START_TEST(trunc_inf)
 {
-#line 410
+#line 426
 
 double testcases[] = {-S21_INF, S21_INF};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -540,7 +556,7 @@ END_TEST
 
 START_TEST(trunc_nan)
 {
-#line 420
+#line 436
 
 ck_assert_ldouble_nan(s21_trunc(S21_NAN));
 ck_assert_ldouble_nan(trunc(S21_NAN));
@@ -550,25 +566,32 @@ END_TEST
 
 START_TEST(floor_basic)
 {
-#line 427
+#line 443
 
 double testcases[] = {-S21_MAX_DOUBLE,
                       -1e20,
                       -7.4143526437e3,
                       -3144.51e-4,
                       0.,
-                      0.43,
                       1e-10,
                       1e-4,
                       4.2356e-2,
+                      0.43,
                       0.5,
+                      0.999999,
                       1.,
+                      1.0000001,
+                      1.001,
+                      1.008888,
+                      1.01,
+                      1.1,
                       1.5,
                       100.,
                       9.123123e6,
                       1e4,
                       1e10,
                       S21_MAX_DOUBLE};
+
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
 
 for (size_t i = 0; i < n; ++i)
@@ -580,7 +603,7 @@ END_TEST
 
 START_TEST(floor_inf)
 {
-#line 452
+#line 475
 
 double testcases[] = {-S21_INF, S21_INF};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -595,7 +618,7 @@ END_TEST
 
 START_TEST(floor_nan)
 {
-#line 462
+#line 485
 
 ck_assert_ldouble_nan(s21_floor(S21_NAN));
 ck_assert_ldouble_nan(floor(S21_NAN));
@@ -605,25 +628,32 @@ END_TEST
 
 START_TEST(ceil_basic)
 {
-#line 469
+#line 492
 
 double testcases[] = {-S21_MAX_DOUBLE,
                       -1e20,
                       -7.4143526437e3,
                       -3144.51e-4,
                       0.,
-                      0.43,
                       1e-10,
                       1e-4,
                       4.2356e-2,
+                      0.43,
                       0.5,
+                      0.999999,
                       1.,
+                      1.0000001,
+                      1.001,
+                      1.008888,
+                      1.01,
+                      1.1,
                       1.5,
                       100.,
                       9.123123e6,
                       1e4,
                       1e10,
                       S21_MAX_DOUBLE};
+
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
 
 for (size_t i = 0; i < n; ++i)
@@ -634,7 +664,7 @@ END_TEST
 
 START_TEST(ceil_inf)
 {
-#line 493
+#line 523
 
 double testcases[] = {-S21_INF, S21_INF};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -649,7 +679,7 @@ END_TEST
 
 START_TEST(ceil_nan)
 {
-#line 503
+#line 533
 
 ck_assert_ldouble_nan(s21_ceil(S21_NAN));
 ck_assert_ldouble_nan(ceil(S21_NAN));
@@ -659,19 +689,25 @@ END_TEST
 
 START_TEST(round_basic)
 {
-#line 510
+#line 540
 
 double testcases[] = {-S21_MAX_DOUBLE,
                       -1e20,
                       -7.4143526437e3,
                       -3144.51e-4,
                       0.,
-                      0.43,
                       1e-10,
                       1e-4,
                       4.2356e-2,
+                      0.43,
                       0.5,
+                      0.999999,
                       1.,
+                      1.0000001,
+                      1.001,
+                      1.008888,
+                      1.01,
+                      1.1,
                       1.5,
                       100.,
                       9.123123e6,
@@ -690,7 +726,7 @@ END_TEST
 
 START_TEST(round_inf)
 {
-#line 536
+#line 572
 
 double testcases[] = {-S21_INF, S21_INF};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -705,7 +741,7 @@ END_TEST
 
 START_TEST(round_nan)
 {
-#line 546
+#line 582
 
 ck_assert_ldouble_nan(s21_round(S21_NAN));
 ck_assert_ldouble_nan(round(S21_NAN));
@@ -716,9 +752,10 @@ END_TEST
 
 START_TEST(asin_basic)
 {
-#line 555
+#line 591
 
-double testcases[] = {-3144.51e-4, 0., 0.43, 1e-10, 1e-4, 4.2356e-2, 0.5, 1.};
+double testcases[] = {-3144.51e-4, 0.,  1e-10,    1e-4, 4.2356e-2,
+                      0.43,        0.5, 0.999999, 1.};
 
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
 
@@ -730,7 +767,7 @@ END_TEST
 
 START_TEST(asin_nan)
 {
-#line 564
+#line 601
 
 double testcases[] = {-S21_INF,   -S21_MAX_DOUBLE,
                       -1e20,      -7.4143526437e3,
@@ -750,9 +787,10 @@ END_TEST
 
 START_TEST(acos_basic)
 {
-#line 581
+#line 618
 
-double testcases[] = {-3144.51e-4, 0., 0.43, 1e-10, 1e-4, 4.2356e-2, 0.5, 1.};
+double testcases[] = {-3144.51e-4, 0.,  1e-10,    1e-4, 4.2356e-2,
+                      0.43,        0.5, 0.999999, 1.};
 
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
 
@@ -764,7 +802,7 @@ END_TEST
 
 START_TEST(acos_nan)
 {
-#line 590
+#line 628
 
 double testcases[] = {-S21_INF,   -S21_MAX_DOUBLE,
                       -1e20,      -7.4143526437e3,
@@ -784,14 +822,17 @@ END_TEST
 
 START_TEST(atan_basic)
 {
-#line 607
+#line 645
 
 double testcases[] = {-S21_INF,    -S21_MAX_DOUBLE,
                       -1e20,       -7.4143526437e3,
                       -3144.51e-4, 0.,
-                      0.43,        1e-10,
-                      1e-4,        4.2356e-2,
-                      0.5,         1.,
+                      1e-10,       1e-4,
+                      4.2356e-2,   0.43,
+                      0.5,         0.999999,
+                      1.,          1.0000001,
+                      1.001,       1.008888,
+                      1.01,        1.1,
                       1.5,         100.,
                       9.123123e6,  1e4,
                       1e10,        S21_MAX_DOUBLE,
@@ -807,7 +848,7 @@ END_TEST
 
 START_TEST(atan_nan)
 {
-#line 625
+#line 666
 
 ck_assert_ldouble_nan(s21_atan(S21_NAN));
 ck_assert_ldouble_nan(atan(S21_NAN));
