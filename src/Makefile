@@ -45,7 +45,7 @@ gcov_report: test
 	genhtml -o report test.info
 	open report/index.html
 
-report_nolcov:
+report_nolcov: test
 	gcov *gcno > coverage.txt
 	open coverage.txt
 
