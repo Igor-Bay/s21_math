@@ -379,14 +379,6 @@ START_TEST(pow_inf_2) {
     ck_assert_ldouble_infinite(result);
     ck_assert_ldouble_infinite(expected_result);
   }
-}
-END_TEST
-
-START_TEST(Sasha_pow) {
-#line 334
-
-  // ck_assert_ldouble_eq(s21_pow(-1, 1), pow(-1, 1));
-  // ck_assert_ldouble_eq(s21_pow(-1, 2), pow(-1, 2));
 
   ck_assert_ldouble_nan(pow(-1.5, -2.5));
   ck_assert_ldouble_nan(s21_pow(-1.5, -2.5));
@@ -396,7 +388,7 @@ START_TEST(Sasha_pow) {
 END_TEST
 
 START_TEST(sqrt_basic) {
-#line 346
+#line 341
 
   double testcases[] = {
       -0.,        1e-10, 1e-4,       4.2356e-2, 0.43,          0.5,
@@ -424,7 +416,7 @@ START_TEST(sqrt_basic) {
 END_TEST
 
 START_TEST(sqrt_inf) {
-#line 371
+#line 366
 
   ck_assert_ldouble_infinite(s21_sqrt(S21_INF));
   ck_assert_ldouble_infinite(sqrt(S21_INF));
@@ -432,7 +424,7 @@ START_TEST(sqrt_inf) {
 END_TEST
 
 START_TEST(sqrt_nan) {
-#line 376
+#line 371
 
   double testcases[] = {-S21_MAX_DOUBLE, -1e4, -1., -0.1, S21_NAN};
   size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -445,7 +437,7 @@ START_TEST(sqrt_nan) {
 END_TEST
 
 START_TEST(sin_basic) {
-#line 390
+#line 385
 
   for (double i = -4.; i <= 4.; i += 0.0625)
     ck_assert_ldouble_eq_tol(s21_sin(i * S21_PI), sin(i * S21_PI), CHK_EPS);
@@ -453,7 +445,7 @@ START_TEST(sin_basic) {
 END_TEST
 
 START_TEST(sin_nan) {
-#line 395
+#line 390
 
   double testcases[] = {-S21_INF, S21_INF, S21_NAN};
   size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -466,7 +458,7 @@ START_TEST(sin_nan) {
 END_TEST
 
 START_TEST(cos_basic) {
-#line 407
+#line 402
 
   for (double i = -4.; i <= 4.; i += 0.0625)
     ck_assert_ldouble_eq_tol(s21_cos(i * S21_PI), cos(i * S21_PI), CHK_EPS);
@@ -474,7 +466,7 @@ START_TEST(cos_basic) {
 END_TEST
 
 START_TEST(cos_nan) {
-#line 412
+#line 407
 
   double testcases[] = {-S21_INF, S21_INF, S21_NAN};
   size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -487,7 +479,7 @@ START_TEST(cos_nan) {
 END_TEST
 
 START_TEST(tan_basic_inf) {
-#line 424
+#line 419
 
   for (double i = -4.; i <= 4.; i += 0.0625) {
     double x = i * S21_PI;
@@ -505,7 +497,7 @@ START_TEST(tan_basic_inf) {
 END_TEST
 
 START_TEST(tan_nan) {
-#line 439
+#line 434
 
   double testcases[] = {-S21_INF, S21_INF, S21_NAN};
   size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -518,7 +510,7 @@ START_TEST(tan_nan) {
 END_TEST
 
 START_TEST(trunc_basic) {
-#line 453
+#line 448
 
   double testcases[] = {-S21_MAX_DOUBLE,
                         -1e20,
@@ -553,7 +545,7 @@ START_TEST(trunc_basic) {
 END_TEST
 
 START_TEST(trunc_inf) {
-#line 485
+#line 480
 
   double testcases[] = {-S21_INF, S21_INF};
   size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -566,7 +558,7 @@ START_TEST(trunc_inf) {
 END_TEST
 
 START_TEST(trunc_nan) {
-#line 495
+#line 490
 
   ck_assert_ldouble_nan(s21_trunc(S21_NAN));
   ck_assert_ldouble_nan(trunc(S21_NAN));
@@ -574,7 +566,7 @@ START_TEST(trunc_nan) {
 END_TEST
 
 START_TEST(floor_basic) {
-#line 502
+#line 497
 
   double testcases[] = {-S21_MAX_DOUBLE,
                         -1e20,
@@ -609,7 +601,7 @@ START_TEST(floor_basic) {
 END_TEST
 
 START_TEST(floor_inf) {
-#line 534
+#line 529
 
   double testcases[] = {-S21_INF, S21_INF};
   size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -622,7 +614,7 @@ START_TEST(floor_inf) {
 END_TEST
 
 START_TEST(floor_nan) {
-#line 544
+#line 539
 
   ck_assert_ldouble_nan(s21_floor(S21_NAN));
   ck_assert_ldouble_nan(floor(S21_NAN));
@@ -630,7 +622,7 @@ START_TEST(floor_nan) {
 END_TEST
 
 START_TEST(ceil_basic) {
-#line 551
+#line 546
 
   double testcases[] = {-S21_MAX_DOUBLE,
                         -1e20,
@@ -665,7 +657,7 @@ START_TEST(ceil_basic) {
 END_TEST
 
 START_TEST(ceil_inf) {
-#line 582
+#line 577
 
   double testcases[] = {-S21_INF, S21_INF};
   size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -678,7 +670,7 @@ START_TEST(ceil_inf) {
 END_TEST
 
 START_TEST(ceil_nan) {
-#line 592
+#line 587
 
   ck_assert_ldouble_nan(s21_ceil(S21_NAN));
   ck_assert_ldouble_nan(ceil(S21_NAN));
@@ -686,7 +678,7 @@ START_TEST(ceil_nan) {
 END_TEST
 
 START_TEST(round_basic) {
-#line 599
+#line 594
 
   double testcases[] = {-S21_MAX_DOUBLE,
                         -1e20,
@@ -721,7 +713,7 @@ START_TEST(round_basic) {
 END_TEST
 
 START_TEST(round_inf) {
-#line 631
+#line 626
 
   double testcases[] = {-S21_INF, S21_INF};
   size_t n = sizeof(testcases) / sizeof(testcases[0]);
@@ -734,7 +726,7 @@ START_TEST(round_inf) {
 END_TEST
 
 START_TEST(round_nan) {
-#line 641
+#line 636
 
   ck_assert_ldouble_nan(s21_round(S21_NAN));
   ck_assert_ldouble_nan(round(S21_NAN));
@@ -742,7 +734,7 @@ START_TEST(round_nan) {
 END_TEST
 
 START_TEST(asin_basic) {
-#line 650
+#line 645
 
   double testcases[] = {-3144.51e-4, 0.,  1e-10,    1e-4, 4.2356e-2,
                         0.43,        0.5, 0.999999, 1.};
@@ -756,7 +748,7 @@ START_TEST(asin_basic) {
 END_TEST
 
 START_TEST(asin_nan) {
-#line 660
+#line 655
 
   double testcases[] = {-S21_INF,   -S21_MAX_DOUBLE,
                         -1e20,      -7.4143526437e3,
@@ -774,7 +766,7 @@ START_TEST(asin_nan) {
 END_TEST
 
 START_TEST(acos_basic) {
-#line 677
+#line 672
 
   double testcases[] = {-3144.51e-4, 0.,  1e-10,    1e-4, 4.2356e-2,
                         0.43,        0.5, 0.999999, 1.};
@@ -788,7 +780,7 @@ START_TEST(acos_basic) {
 END_TEST
 
 START_TEST(acos_nan) {
-#line 687
+#line 682
 
   double testcases[] = {-S21_INF,   -S21_MAX_DOUBLE,
                         -1e20,      -7.4143526437e3,
@@ -806,7 +798,7 @@ START_TEST(acos_nan) {
 END_TEST
 
 START_TEST(atan_basic) {
-#line 704
+#line 699
 
   double testcases[] = {-S21_INF,    -S21_MAX_DOUBLE,
                         -1e20,       -7.4143526437e3,
@@ -831,7 +823,7 @@ START_TEST(atan_basic) {
 END_TEST
 
 START_TEST(atan_nan) {
-#line 725
+#line 720
 
   ck_assert_ldouble_nan(s21_atan(S21_NAN));
   ck_assert_ldouble_nan(atan(S21_NAN));
@@ -891,7 +883,6 @@ int main(void) {
   tcase_add_test(tc3_3, pow_nan_2);
   tcase_add_test(tc3_3, pow_inf_1);
   tcase_add_test(tc3_3, pow_inf_2);
-  tcase_add_test(tc3_3, Sasha_pow);
   suite_add_tcase(s3, tc3_4);
   tcase_add_test(tc3_4, sqrt_basic);
   tcase_add_test(tc3_4, sqrt_inf);
