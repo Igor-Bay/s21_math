@@ -1,10 +1,18 @@
 
 #include <math.h>
-#include <stdio.h>
+#include <stdlib.h>
 
 #include "s21_math.h"
 
 #define CHK_EPS 1e-6
+
+void abs_basic() {
+  int testcases[] = {-2147483648, -422112, -3458, -2,     -1,        -0,
+                     0,           1,       2,     481516, 2147483647};
+  size_t n = sizeof(testcases) / sizeof(testcases[0]);
+
+  for (size_t i = 0; i < n; ++i) s21_abs(testcases[i]);
+}
 
 void fabs_basic() {
   double testcases[] = {-S21_MAX_DOUBLE,
@@ -575,6 +583,7 @@ void atan_basic() {
 }
 
 int main(void) {
+  abs_basic();
   fabs_basic();
   fabs_inf();
   fabs_nan();
