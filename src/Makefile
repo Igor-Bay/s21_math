@@ -76,4 +76,4 @@ stylecheck: .clang-format
 	@clang-format -n $(FILES_TO_CHECK)
 	
 fmt: .clang-format
-	@clang-format -i $(FILES_TO_CHECK) valgrind_main.c
+	@clang-format -i $(FILES_TO_CHECK) valgrind_main.c check_test.check
