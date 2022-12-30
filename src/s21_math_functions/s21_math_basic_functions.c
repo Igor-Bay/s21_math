@@ -1,5 +1,7 @@
 #include "../s21_math.h"
 
+int s21_abs(int x) { return x & 1 << ((sizeof(int) * 8) - 1) ? -x : x; }
+
 long double s21_fabs(double x) {
   double_cast dc = {x};
   dc.parts.sgn = 0;
