@@ -22,7 +22,7 @@ SOURCES=$(addprefix s21_math_functions/,s21_math_basic_functions.c s21_math_trig
 OBJECTS=$(SOURCES:.c=.o)
 TESTS_SOURCES=test.c
 
-FILES_TO_CHECK=$(SOURCES) $(HEADERS)
+FILES_TO_CHECK=$(SOURCES) $(HEADERS) $(TESTS_SOURCES)
 
 .PHONY: test rebuild clean stylecheck fmt
 .SECONDARY: $(OBJECTS)
@@ -63,11 +63,10 @@ all_functions: $(SOURCES)
 rebuild: clean all
 
 main: clean s21_math.a
-	$(CC) -o main.out $(BUILDFLAGS) main.c s21_math.a
+	$(CC) -o main.out $(BUILDFLAGS) valgrind_main.c s21_math.a
 
 clean: 
-	@rm -rf  $(OBJECTS) 
-# $(SPRINT_OBJECTS) $(SSCAN_OBJECTS) $(GCDA_FILES) $(GCNO_FILES) $(GCOV_FILES) 
+	@rm -rf  $(OBJECTS)
 	@rm -rf report/ s21_math.a *.gcda *.gcno *.gcov *.out *.info *.o coverage.txt *.dSYM
 
 .clang-format:
@@ -77,4 +76,4 @@ stylecheck: .clang-format
 	@clang-format -n $(FILES_TO_CHECK)
 	
 fmt: .clang-format
-	@clang-format -i $(FILES_TO_CHECK) main.c check_test.c
+	@clang-format -i $(FILES_TO_CHECK) valgrind_main.c

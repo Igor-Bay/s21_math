@@ -222,16 +222,14 @@ for (size_t i = 0; i < n; ++i) {
 
 #tcase s21_pow_test
 
-#test pow_basic
+#test pow_basic_1
 
-double testcases[] = {1., 2., 3., 4., 5., 10., 1e-10, 1e-5, 0.5, 0.1, 24.536};
+double testcases[] = {1., 2., 3., 4., 5., 10., 9.75, 24.536};
 size_t n = sizeof(testcases) / sizeof(testcases[0]);
 
-for (size_t i = 0; i < n; ++i)
-  for (size_t j = 0; j < n; ++j)
-    for (int sgn = 1; sgn <= 1; sgn += 2) {
-      // printf("%.16lf\t%.16lf\t%d\n", testcases[i], testcases[j], sgn);
-
+for (int sgn = -1; sgn <= 1; sgn += 2)
+  for (size_t i = 0; i < n; ++i)
+    for (size_t j = 0; j < n; ++j) {
       long double result = s21_pow(testcases[i], testcases[j] * sgn);
       double expected_result = pow(testcases[i], testcases[j] * sgn);
       if (result > 1e10) {
@@ -247,17 +245,30 @@ for (size_t i = 0; i < n; ++i)
       ck_assert_ldouble_eq_tol(result, expected_result, CHK_EPS);
     }
 
-#test pow_inf
+#test pow_basic_2
 
-#test pow_nan
+double testcases[] = {0., 1., 2., 3., 4., 5., 10., 9.75, 24.536};
+size_t n = sizeof(testcases) / sizeof(testcases[0]);
 
-#test Sasha_pow
-ck_assert_ldouble_eq(s21_pow(0, 0), pow(0, 0));
-ck_assert_ldouble_eq(s21_pow(0, -1), pow(0, -1));
-ck_assert_ldouble_eq(s21_pow(0, 1), pow(0, 1));
-ck_assert_ldouble_eq(s21_pow(1, 0), pow(1, 0));
-// ck_assert_ldouble_eq(s21_pow(-1, 1), pow(-1, 1));
-// ck_assert_ldouble_eq(s21_pow(-1, 2), pow(-1, 2));
+for (size_t i = 0; i < n; ++i)
+  for (size_t j = 0; j < n; ++j) {
+    long double result = s21_pow(testcases[i], testcases[j]);
+    double expected_result = pow(testcases[i], testcases[j]);
+    if (result > 1e10) {
+      int power = ceil(log10l(result));
+      result *= powl(10, 10 - power);
+      result = truncl(result);
+
+      power = ceil(log10l(expected_result));
+      expected_result *= pow(10, 10 - power);
+      expected_result = trunc(expected_result);
+    }
+
+    ck_assert_ldouble_eq_tol(result, expected_result, CHK_EPS);
+  }
+
+#test pow_basic_3
+
 ck_assert_ldouble_eq(s21_pow(0.5, S21_INF), pow(0.5, S21_INF));
 ck_assert_ldouble_eq(s21_pow(0.5, -S21_INF), pow(0.5, -S21_INF));
 ck_assert_ldouble_eq(s21_pow(S21_NAN, 0), pow(S21_NAN, 0));
@@ -274,12 +285,60 @@ ck_assert_ldouble_eq(s21_pow(S21_INF, S21_INF), pow(S21_INF, S21_INF));
 ck_assert_ldouble_eq(s21_pow(S21_INF, -S21_INF), pow(S21_INF, -S21_INF));
 ck_assert_ldouble_eq(s21_pow(-S21_INF, S21_INF), pow(-S21_INF, S21_INF));
 ck_assert_ldouble_eq(s21_pow(-S21_INF, -S21_INF), pow(-S21_INF, -S21_INF));
+ck_assert_ldouble_eq(s21_pow(1., S21_NAN), pow(1., S21_NAN));
+
+#test pow_nan_1
+
+double testcases[] = {1.15, 2.623, 3.457, 4.08253, 5.457, 0.098, 9.75, 24.536};
+size_t n = sizeof(testcases) / sizeof(testcases[0]);
+
+for (size_t i = 0; i < n; ++i)
+  for (size_t j = 0; j < n; ++j) {
+    long double result = s21_pow(testcases[i] * -1., testcases[j]);
+    double expected_result = pow(testcases[i] * -1., testcases[j]);
+
+    ck_assert_ldouble_nan(result);
+    ck_assert_ldouble_nan(expected_result);
+  }
+
+#test pow_nan_2
+
+ck_assert_ldouble_nan(s21_pow(S21_NAN, 1.));
+ck_assert_ldouble_nan(s21_pow(S21_NAN, S21_NAN));
+ck_assert_ldouble_nan(pow(S21_NAN, 1.));
+ck_assert_ldouble_nan(pow(S21_NAN, S21_NAN));
+
+#test pow_inf_1
+
+ck_assert_ldouble_infinite(s21_pow(0., -1.));
+ck_assert_ldouble_infinite(s21_pow(0., -2.));
+ck_assert_ldouble_infinite(s21_pow(0., -3.));
+ck_assert_ldouble_infinite(pow(0., -1.));
+ck_assert_ldouble_infinite(pow(0., -2.));
+ck_assert_ldouble_infinite(pow(0., -3.));
+
+#test pow_inf_2
+
+double testcases[] = {24.536, 50., 100124.116131, -1245.15};
+size_t n = sizeof(testcases) / sizeof(testcases[0]);
+
+for (size_t i = 0; i < n; ++i) {
+  long double result = s21_pow(testcases[i], 500);
+  double expected_result = pow(testcases[i], 500);
+
+  ck_assert_ldouble_infinite(result);
+  ck_assert_ldouble_infinite(expected_result);
+}
+
+#test Sasha_pow
+
+// ck_assert_ldouble_eq(s21_pow(-1, 1), pow(-1, 1));
+// ck_assert_ldouble_eq(s21_pow(-1, 2), pow(-1, 2));
+
 ck_assert_ldouble_nan(pow(-1.5, -2.5));
 ck_assert_ldouble_nan(s21_pow(-1.5, -2.5));
 ck_assert_ldouble_eq(s21_pow(-S21_INF, -3.), s21_pow(-S21_INF, -3.));
 ck_assert_ldouble_eq(s21_pow(-S21_INF, 3.), s21_pow(-S21_INF, 3.));
-ck_assert_ldouble_eq(s21_pow(5., 3.), s21_pow(5., 3.));
-ck_assert_ldouble_eq(s21_pow(5.5, -3.1), s21_pow(5.5, -3.1));
 
 #tcase s21_sqrt_test
 

@@ -49,7 +49,6 @@
 
 typedef union {
   double d;
-  // uint64_t u;
   struct {
     uint64_t mnt : 52;
     uint64_t exp : 11;

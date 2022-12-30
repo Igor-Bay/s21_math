@@ -71,7 +71,9 @@ long double s21_log(double x) {
 long double s21_pow(double base, double exp) {
   long double result = 0;
 
-  if (S21_IS_NAN(exp)) {
+  if (S21_IS_NULL(base - 1)) {
+    result = 1;
+  } else if (S21_IS_NAN(exp)) {
     result = S21_NAN;
   } else if (S21_IS_NULL(exp)) {
     result = 1;
@@ -91,8 +93,6 @@ long double s21_pow(double base, double exp) {
       result *= S21_IS_NULL(s21_fmod(exp, 2)) ? 1 : -1;
     } else
       result = S21_NAN;
-  } else if (S21_IS_NULL(base - 1)) {
-    result = 1;
   } else {
     long double power = s21_log(base) * exp;
     long double left_bound = s21_exp(power - 1);
@@ -104,9 +104,6 @@ long double s21_pow(double base, double exp) {
         right_bound = S21_MAX_DOUBLE;
       }
 
-      // метод хорд и касательных
-      // сходится быстро но нужно сделать на него многа тестов!!!
-      // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
       long double mid = left_bound / 2. + right_bound / 2.;
       long double func_diff = s21_log(mid) - power;
       int counter = 0;
@@ -124,32 +121,6 @@ long double s21_pow(double base, double exp) {
         counter++;
       }
       result = mid;
-      // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-      /*
-      // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-      // метод половинного деления (бинарный поиск)
-      // сходится итераций за 60 тестов можно сделать поменьше
-      long double prev_mid = 0;
-      long double mid = left_bound / 2. + right_bound / 2.;
-      long double func_diff = s21_log(mid) - power;
-      int counter = 0;
-
-      while (s21_fabs(func_diff) >= EPS && s21_fabs(mid - prev_mid) >= EPS &&
-             counter < 1000) {
-        if (func_diff < 0) {
-          left_bound = mid;
-        } else {
-          right_bound = mid;
-        }
-        prev_mid = mid;
-        mid = left_bound / 2. + right_bound / 2.;
-        func_diff = s21_log(mid) - power;
-        counter++;
-      }
-      result = counter;
-      // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-      */
     }
   }
   return result;
