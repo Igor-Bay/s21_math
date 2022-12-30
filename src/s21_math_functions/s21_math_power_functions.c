@@ -91,6 +91,8 @@ long double s21_pow(double base, double exp) {
       result *= S21_IS_NULL(s21_fmod(exp, 2)) ? 1 : -1;
     } else
       result = S21_NAN;
+  } else if (S21_IS_NULL(base - 1)) {
+    result = 1;
   } else {
     long double power = s21_log(base) * exp;
     long double left_bound = s21_exp(power - 1);
@@ -110,7 +112,7 @@ long double s21_pow(double base, double exp) {
       int counter = 0;
 
       while (s21_fabs(func_diff) >= 1e-16 &&
-             s21_fabs(right_bound - left_bound) >= 2 * 1e-16 && counter < 14) {
+             left_bound + 2.0L * 1e-16L <= right_bound && counter < 14) {
         long double log_diff = s21_log(right_bound) - s21_log(left_bound);
         if (s21_fabs(log_diff) > EPS) {
           right_bound -= s21_fabs((right_bound - left_bound) *
