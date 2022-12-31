@@ -62,8 +62,8 @@ all_functions: $(SOURCES)
 
 rebuild: clean all
 
-main: clean s21_math.a
-	$(CC) -o main.out $(BUILDFLAGS) valgrind_main.c s21_math.a
+valgrind_test: clean s21_math.a
+	$(CC) -o valgrind_test.out $(BUILDFLAGS) valgrind_test.c s21_math.a
 
 clean: 
 	@rm -rf  $(OBJECTS)
@@ -76,4 +76,4 @@ stylecheck: .clang-format
 	@clang-format -n $(FILES_TO_CHECK)
 	
 fmt: .clang-format
-	@clang-format -i $(FILES_TO_CHECK) valgrind_main.c check_test.check
+	@clang-format -i $(FILES_TO_CHECK) valgrind_test.c check_test.check

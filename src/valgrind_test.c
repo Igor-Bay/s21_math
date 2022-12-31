@@ -156,10 +156,7 @@ void exp_inf() {
   }
 }
 
-void exp_nan() {
-  s21_exp(S21_NAN);
-  exp(S21_NAN);
-}
+void exp_nan() { s21_exp(S21_NAN); }
 
 void log_basic() {
   double testcases[] = {0.001,      1e-10,    1e-4, 4.2356e-2,     0.43,

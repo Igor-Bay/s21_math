@@ -31,5 +31,5 @@ WORKDIR "/project/src"
 
 ENTRYPOINT ["/bin/bash"]
 
-# RUN make
-# RUN gcc -o valgrind_test.out -Wall -Werror -Wextra valgrind_test.c s21_string.a
+RUN make valgrind_test
+# RUN valgrind --tool=memcheck --leak-check=full --track-origins=yes --show-reachable=yes --num-callers=20 --track-fds=yes ./valgrind_test.out

@@ -17,8 +17,9 @@
 START_TEST(abs_basic) {
 #line 14
 
-  int testcases[] = {-2147483648, -422112, -3458, -2,     -1,        -0,
-                     0,           1,       2,     481516, 2147483647};
+  int testcases[] = {-2147483648, -2147483647, -422112, -3458,
+                     -2,          -1,          -0,      0,
+                     1,           2,           481516,  2147483647};
   size_t n = sizeof(testcases) / sizeof(testcases[0]);
 
   for (size_t i = 0; i < n; ++i)
