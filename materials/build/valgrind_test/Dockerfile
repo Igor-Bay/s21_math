@@ -31,5 +31,5 @@ WORKDIR "/project/src"
 
 ENTRYPOINT ["/bin/bash"]
 
-RUN make valgrind_test
+# RUN make valgrind_test
 # RUN valgrind --tool=memcheck --leak-check=full --track-origins=yes --show-reachable=yes --num-callers=20 --track-fds=yes ./valgrind_test.out

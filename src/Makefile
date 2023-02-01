@@ -11,14 +11,8 @@ TESTFLAGS += -lcheck -lpthread -pthread
 
 GCOVFLAGS = -fprofile-arcs -ftest-coverage
 
-LINUXFLAGS:=
-ifeq ($(shell uname -s),Linux)
-	LINUXFLAGS += -lm -lrt -lsubunit 
-# -lstdc++
-endif
-
 HEADERS=s21_math.h
-SOURCES=$(addprefix s21_math_functions/,s21_math_basic_functions.c s21_math_trigonometric_functions.c s21_math_inv_trig_functions.c s21_math_power_functions.c s21_math_round_functions.c s21_math_fmod.c)
+SOURCES=$(addprefix s21_math_functions/,s21_math_basic_functions.c s21_math_round_functions.c s21_math_fmod.c)
 OBJECTS=$(SOURCES:.c=.o)
 TESTS_SOURCES=test.c
 
@@ -34,14 +28,14 @@ all: s21_math.a
 	$(CC) $^ -o $@
 	
 %.o: %.c
-	$(CC) $(CFLAGS) $(LINUXFLAGS) $^ -o $@ 
+	$(CC) $(CFLAGS) $^ -o $@ 
 
 s21_math.a:  $(OBJECTS)
 	ar rcs s21_math.a $^
 	ranlib s21_math.a
 
 gcov_report: test
-	lcov -t test.out -o test.info -c -d .
+	lcov -t test.out -o test.info -c -d . --no-external
 	genhtml -o report test.info
 	open report/index.html
 
